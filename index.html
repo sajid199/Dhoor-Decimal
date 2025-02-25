@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decimal to Dhoor Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Decimal ⇄ Dhoor Converter</h2>
+        <p>Formula Used: 1 Dhoor = ((Laggi) × 2.272)² Sq Kadi</p>
+        
+        <label for="laggiHanth">Enter Laggi:</label>
+        <input type="number" id="laggiHanth" placeholder="Enter Laggi Value" min="1">
+
+        <br>
+
+        <label for="decimalInput">Enter Decimal:</label>
+        <input type="number" id="decimalInput" placeholder="Enter Decimal Value">
+        <button onclick="convertToDhoor()">Convert to Dhoor</button>
+
+        <br>
+
+        <label for="dhoorInput">Enter Dhoor:</label>
+        <input type="number" id="dhoorInput" placeholder="Enter Dhoor Value">
+        <button onclick="convertToDecimal()">Convert to Decimal</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function convertToDhoor() {
+            let laggiHanth = parseFloat(document.getElementById("laggiHanth").value);
+            let decimal = parseFloat(document.getElementById("decimalInput").value);
+
+            if (isNaN(laggiHanth) || laggiHanth <= 0) {
+                document.getElementById("result").innerHTML = "Please enter a valid Laggi value.";
+                return;
+            }
+
+            if (isNaN(decimal) || decimal <= 0) {
+                document.getElementById("result").innerHTML = "Please enter a valid Decimal value.";
+                return;
+            }
+
+            let oneDhoorInSqKadi = Math.pow((laggiHanth * 2.27), 2);
+            let dhoor = (decimal * 1000) / oneDhoorInSqKadi;
+
+            document.getElementById("result").innerHTML = `${decimal} Decimal = ${dhoor.toFixed(2)} Dhoor`;
+        }
+
+        function convertToDecimal() {
+            let laggiHanth = parseFloat(document.getElementById("laggiHanth").value);
+            let dhoor = parseFloat(document.getElementById("dhoorInput").value);
+
+            if (isNaN(laggiHanth) || laggiHanth <= 0) {
+                document.getElementById("result").innerHTML = "Please enter a valid Laggi value.";
+                return;
+            }
+
+            if (isNaN(dhoor) || dhoor <= 0) {
+                document.getElementById("result").innerHTML = "Please enter a valid Dhoor value.";
+                return;
+            }
+
+            let oneDhoorInSqKadi = Math.pow((laggiHanth * 2.272), 2);
+            let decimal = (dhoor * oneDhoorInSqKadi) / 1000;
+
+            document.getElementById("result").innerHTML = `${dhoor} Dhoor = ${decimal.toFixed(2)} Decimal`;
+        }
+    </script>
+
+</body>
+</html>
